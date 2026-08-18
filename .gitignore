@@ -1,0 +1,16 @@
+# Raw dataset — download it yourself (see README), don't commit 100k-row CSVs to git
+data/*.csv
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# OS / editor
+.DS_Store
+.vscode/

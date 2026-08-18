@@ -1,0 +1,23 @@
+# Pinned to specific versions on purpose: scikit-learn pickles are NOT
+# guaranteed compatible across versions (not even minor ones). If you train
+# locally with a different scikit-learn than the one Streamlit Cloud
+# installs from this file, joblib.load() in app.py can raise or silently
+# produce wrong predictions. Before training, create a venv and install
+# exactly these versions:
+#   python -m venv venv && source venv/bin/activate  (Linux/BITS lab)
+#   pip install -r requirements.txt
+#   python model/train_models.py
+# Then deploy that same requirements.txt unchanged to Streamlit Cloud.
+#
+# Also set the Python version explicitly on Streamlit Cloud (Advanced
+# settings -> Python version, or a .python-version file in the repo) to
+# 3.11 — these versions all ship prebuilt wheels for 3.11 on Linux, which
+# avoids slow/failing source builds on deploy.
+
+streamlit==1.35.0
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.4.2
+joblib==1.4.2
+matplotlib==3.8.4
+seaborn==0.13.2
