@@ -136,10 +136,16 @@ instead of crashing the app.
 
 ## Deploying to Streamlit Cloud
 
-See the checklist at the bottom of this doc for the manual steps (push to GitHub,
-connect the repo, set the Python version). The short version: point Streamlit Cloud
-at `app.py`, and make sure the `.pkl` files under `model/` are committed (Streamlit
-Cloud only has what's in the repo — it doesn't run `train_models.py` for you).
+1. Push this repo to GitHub (including the `.pkl` files under `model/` — Streamlit
+   Cloud only has what's in the repo, it doesn't run `train_models.py` for you).
+2. Go to [share.streamlit.io](https://share.streamlit.io), sign in, click "New app."
+3. Select this repository, branch `main`, main file `app.py`.
+4. In Advanced settings, set the Python version to `3.11` (matches `.python-version`
+   and avoids the dependency/version-mismatch failures unpinned environments run
+   into).
+5. Deploy, then verify the live URL works the same way the local app does —
+   upload/dropdown/metrics/confusion matrix all functioning, not just a successful
+   build.
 
 ## Model comparison
 
@@ -191,7 +197,7 @@ edges it out on AUC alone by a similarly thin margin.
 | K-Nearest Neighbors | Second-weakest model on accuracy/precision/F1/MCC (91.5% accuracy, 90.2% F1, 0.847 MCC) — beats Naive Bayes on these four metrics, but has the lowest recall of all six models (0.884). With 14 features, distance-based neighbor lookup starts to suffer from the curse of dimensionality, and STAR/QSO — the two minority, spectroscopically similar classes — are the most likely to get missed (false negatives), which is what recall penalizes. |
 | Gaussian Naive Bayes | **Weakest model overall** — lowest accuracy (90.2%), precision (0.880), F1 (0.894), and MCC (0.836) of all six models. Its core independence assumption (each feature is normally distributed and uncorrelated given the class) doesn't hold well here, since the five magnitude columns (`u,g,r,i,z`) are strongly correlated with each other. Interestingly it still beats KNN on AUC (0.971 vs 0.962) and recall (0.917 vs 0.884) — its probabilistic outputs rank classes reasonably well even when its hard classifications are the least accurate. It's also the fastest to train by a wide margin, which is its main practical advantage. |
 | Random Forest | **Best performing model overall** — highest accuracy (97.92%), AUC (0.9950), F1 (0.9759), and MCC (0.9631). Bagging many decision trees fixes the single-tree's calibration weakness (much higher AUC than the standalone Decision Tree) while keeping its ability to model non-linear class boundaries. |
-| Gaussian Naive Bayes vs Gradient Boosting | Gradient Boosting is essentially tied with Random Forest (97.76% accuracy, 0.9951 AUC — marginally the single highest AUC of all six models) but very slightly behind on F1/MCC, likely because boosting optimizes a different loss trajectory and Random Forest's bagging generalizes marginally better on this particular stratified split. |
+| Gradient Boosting | Essentially tied with Random Forest (97.76% accuracy, 0.9951 AUC — marginally the single highest AUC of all six models) but very slightly behind on F1/MCC, likely because boosting optimizes a different loss trajectory and Random Forest's bagging generalizes marginally better on this particular stratified split. |
 | **Overall Winner for this dataset** | **Random Forest.** Selection criterion: primarily macro-F1 and MCC (chosen over raw accuracy because the classes are imbalanced ~45/16/14%, so a metric that scores each class equally is more trustworthy), with AUC as a tie-breaker for ranking quality. Random Forest leads on F1 (0.9759) and MCC (0.9631), and is within 0.0001 of Gradient Boosting's AUC — the single best-performing model without any hyperparameter tuning. |
 
 ---
