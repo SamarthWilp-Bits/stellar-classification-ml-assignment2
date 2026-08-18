@@ -15,6 +15,10 @@ startup).
 
 https://github.com/SamarthWilp-Bits/stellar-classification-ml-assignment2
 
+## Live Streamlit App
+
+https://stellar-classification-ml-assignment2-27nwznt4kkvhbjeakrvjtl.streamlit.app
+
 ## Dataset
 
 - **Source**: [Stellar Classification Dataset - SDSS17](https://www.kaggle.com/datasets/fedesoriano/stellar-classification-dataset-sdss17) (Kaggle, fedesoriano)
