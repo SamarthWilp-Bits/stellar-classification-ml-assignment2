@@ -13,7 +13,7 @@ startup).
 
 ## GitHub Repository Link
 
-[TO BE UPDATED AFTER PUSHING — paste your actual repo URL here, e.g. https://github.com/<your-username>/<repo-name>]
+https://github.com/SamarthWilp-Bits/stellar-classification-ml-assignment2
 
 ## Dataset
 
